@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imagpha"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
+        android:layout_width="94dp"
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameDrag"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/NameOfDrag" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/SalryOfDrag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/salry" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="LE">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/pluseAction"
+            android:layout_width="52dp"
+            android:layout_height="27dp"
+            android:background="@drawable/add_button"
+            android:backgroundTint="@color/DarkBlue"/>
+
+        <EditText
+            android:id="@+id/numOfDrag"
+            android:layout_width="37dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="0"
+            android:backgroundTint="@color/DarkBlue"
+            />
+
+        <Button
+            android:id="@+id/minesAction"
+            android:layout_width="52dp"
+            android:layout_height="27dp"
+            android:background="@drawable/remove_button"
+            android:backgroundTint="@color/DarkBlue"/>
+
+    </LinearLayout>
+
+</LinearLayout>

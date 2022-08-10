@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/drawable/add_button.xml" value="0.1265" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/drawable/corneredit.xml" value="0.1265" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_add_cutom_viw.xml" value="0.21" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_boone.xml" value="0.16" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_brain.xml" value="0.16" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_heart.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_home_manger.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_home_page.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_sign_up.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_teeth.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/activity_teeth_datbase.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/list_item.xml" value="0.33" />
+        <entry key="..\:/Users/tech/AndroidStudioProjects/Shifaa/app/src/main/res/layout/list_item2.xml" value="0.17074275362318841" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

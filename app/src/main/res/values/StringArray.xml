@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="NameDrag1">
+        <item>Cardilop</item>
+        <item>Metformin</item>
+        <item>Avandia</item>
+        <item>Eliquis</item>
+        <item>Onpattro</item>
+        <item>Bayer</item>
+        <item>Reckeweg</item>
+        <item>Tonicard</item>
+        <item>Cardiotone</item>
+        <item>Plavix</item>
+    </string-array>
+    
+    <string-array name="SalryDrag1">
+        <item>10</item>
+        <item>12</item>
+        <item>8</item>
+        <item>12</item>
+        <item>15</item>
+        <item>20</item>
+        <item>7</item>
+        <item>10</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+
+    <string-array name="NameDrag2">
+        <item>Alli</item>
+        <item>Pileboon</item>
+        <item>Femi Boon</item>
+        <item>Gynocare</item>
+        <item>Statin</item>
+        <item>Buprenorphine</item>
+        <item>Began</item>
+        <item>Cold-Plus</item>
+        <item>Para500</item>
+        <item>Sugar Vita</item>
+    </string-array>
+
+    <string-array name="SalryDrag2">
+        <item>10LE</item>
+        <item>12LE</item>
+        <item>8LE</item>
+        <item>12LE</item>
+        <item>15LE</item>
+        <item>20LE</item>
+        <item>7LE</item>
+        <item>10LE</item>
+        <item>10LE</item>
+        <item>15LE</item>
+    </string-array>
+
+    <string-array name="NameDrag3">
+        <item>Buspirone40</item>
+        <item>Calmepam35</item>
+        <item>Diazepam25</item>
+        <item>Milga42</item>
+        <item>Motival9</item>
+        <item>Neuroton37</item>
+        <item>Pregavalex70</item>
+        <item>Tegral20</item>
+        <item>Thiotacid67</item>
+        <item>Uripan50</item>
+    </string-array>
+
+    <string-array name="SalryDrag3">
+        <item>40LE</item>
+        <item>35LE</item>
+        <item>25LE</item>
+        <item>42LE</item>
+        <item>9LE</item>
+        <item>37LE</item>
+        <item>70LE</item>
+        <item>20LE</item>
+        <item>67LE</item>
+        <item>50LE</item>
+    </string-array>
+
+    <string-array name="NameDrag4">
+        <item>brufen</item>
+        <item>cataflam</item>
+        <item>Orovex</item>
+        <item>Dg long</item>
+        <item>flagyl</item>
+        <item>ketofan</item>
+        <item>keflex</item>
+        <item>micoban</item>
+        <item>voltaren</item>
+        <item>signal</item>
+
+    </string-array>
+
+    <string-array name="SalryDrag4">
+        <item>31.5 LE</item>
+        <item>12 LE</item>
+        <item>7.5 LE</item>
+        <item>20 LE</item>
+        <item>12 LE</item>
+        <item>9 LE</item>
+        <item>41.5 LE</item>
+        <item>7 LE</item>
+        <item>8 LE</item>
+        <item>18 LE</item>
+    </string-array>
+
+</resources>
