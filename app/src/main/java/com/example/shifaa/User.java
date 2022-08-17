@@ -1,29 +1,25 @@
 package com.example.shifaa;
 
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
-import java.net.URI;
 
 public class User {
 
     private String tupeOfDrag;
     private String saleOfDrag;
+    private String urlImag;
     private Integer imgDrag;
-    public  Uri draw ;
+    public String mImageUri;
+
+    public User() {
+
+    }
 
     public User(String tupeOfDrag, String saleOfDrag, Integer imgDrag) {
         this.tupeOfDrag = tupeOfDrag;
         this.saleOfDrag = saleOfDrag;
         this.imgDrag = imgDrag;
     }
-
-    public User(String tupeOfDrag, String saleOfDrag, Uri draw) {
-        this.tupeOfDrag = tupeOfDrag;
-        this.saleOfDrag = saleOfDrag;
-        this.draw = draw;
-    }
-
 
 
     public String getTupeOfDrag() {
@@ -48,6 +44,22 @@ public class User {
 
     public void setImgDrag(Integer imgDrag) {
         this.imgDrag = imgDrag;
+    }
+
+    public String getUrlImage() {
+        return urlImag;
+    }
+
+    public void seturlImag(String tupeOfDrag) {
+        this.urlImag = urlImag;
+    }
+
+    public String getmImageUri() {
+        return mImageUri;
+    }
+
+    public void setmImageUri(String mImageUri) {
+        this.mImageUri = mImageUri;
     }
 
 }

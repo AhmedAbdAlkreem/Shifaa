@@ -1,5 +1,13 @@
 package com.example.shifaa;
 
+import static com.example.shifaa.MainActivity.imageDrag_cart;
+import static com.example.shifaa.MainActivity.no;
+import static com.example.shifaa.MainActivity.top;
+import static com.example.shifaa.MainActivity.total;
+import static com.example.shifaa.MainActivity.s1_c;
+import static com.example.shifaa.MainActivity.s2_c;
+import static com.example.shifaa.MainActivity.s3_c;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -21,6 +29,7 @@ public class heart extends AppCompatActivity {
     int[] imageDrag = {R.drawable.medicine1, R.drawable.medicine2, R.drawable.medicine3, R.drawable.medicine4, R.drawable.medicine5, R.drawable.medicine6, R.drawable.medicine7, R.drawable.medicine8, R.drawable.medicine9, R.drawable.medicine10};
     String[] s1, s2;
     ArrayList<User> l_item = new ArrayList<>();
+    ImageView imgcart;
 
     Button order;
     TextView salry;
@@ -88,11 +97,13 @@ public class heart extends AppCompatActivity {
             LayoutInflater layoutInflater = getLayoutInflater();
             View view1 = layoutInflater.inflate(R.layout.list_item, null);
             TextView txtName = view1.findViewById(R.id.nameDrag);
-            TextView txtdesc = (TextView) view1.findViewById(R.id.SalryOfDrag);
-            TextView cha = (TextView) view1.findViewById(R.id.numOfDrag);
-            ImageView imag = (ImageView) view1.findViewById(R.id.imagpha);
-            Button btnPlu = (Button) view1.findViewById(R.id.pluseAction);
-            Button btnmin = (Button) view1.findViewById(R.id.minesAction);
+            TextView txtdesc =  view1.findViewById(R.id.SalryOfDrag);
+            TextView cha =  view1.findViewById(R.id.numOfDrag);
+            ImageView imag =  view1.findViewById(R.id.imagpha);
+            Button btnPlu =  view1.findViewById(R.id.pluseAction);
+            Button btnmin =  view1.findViewById(R.id.minesAction);
+            imgcart = view1.findViewById(R.id.img_cart);
+
             btnPlu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -112,6 +123,31 @@ public class heart extends AppCompatActivity {
                         present_value_int--;
                     }
                     cha.setText(String.valueOf(present_value_int));
+                }
+            });
+
+            imgcart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String a = String.valueOf(txtdesc.getText().toString());   //Price
+                    String b = cha.getText().toString();                       //quantity
+                    String r = txtName.getText().toString();                   //name
+                    Float c = Float.parseFloat(a);
+                    Float d = Float.parseFloat(b);
+                    if(d!=0) {
+                        Float e = c * d;
+                        String f = String.valueOf(e).toString();
+                        top++;
+                        imageDrag_cart[no] = imag.getDrawable();
+                        s1_c[no] = r;
+                        s2_c[no] = a;
+                        s3_c[no] = b;
+                        total += e;
+                        no++;
+                        Toast.makeText(heart.this,r+" Added to Cart", Toast.LENGTH_LONG).show();
+                        cha.setText("0");                    }
+                    else
+                        Toast.makeText(heart.this,"add element first", Toast.LENGTH_LONG).show();
                 }
             });
 

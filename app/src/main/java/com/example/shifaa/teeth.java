@@ -65,7 +65,7 @@ public class teeth extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             LayoutInflater layoutInflater = getLayoutInflater();
             View view1 = layoutInflater.inflate(R.layout.list_item, null);
-            TextView txtName = view1.findViewById(R.id.nameDrag);
+            TextView txtName = (TextView) view1.findViewById(R.id.nameDrag);
             TextView txtdesc = (TextView) view1.findViewById(R.id.SalryOfDrag);
             TextView cha = (TextView) view1.findViewById(R.id.numOfDrag);
             ImageView imag = (ImageView) view1.findViewById(R.id.imagpha);

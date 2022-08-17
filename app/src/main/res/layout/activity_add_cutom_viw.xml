@@ -28,7 +28,8 @@
         <EditText
             android:id="@+id/getDragname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
@@ -50,12 +51,32 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/AddChange"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Add" />
+        android:orientation="horizontal"
+        android:gravity="center">
+
+
+
+        <Button
+            android:id="@+id/AddChange"
+            android:layout_margin="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Add" />
+
+        <Button
+            android:layout_margin="4dp"
+            android:id="@+id/showList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Show" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/gallrey"
@@ -64,9 +85,9 @@
         android:layout_gravity="center_horizontal"
         android:text="Load Photo in Gallry" />
 
-    <ListView
-        android:id="@+id/listView8"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ReclerView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 

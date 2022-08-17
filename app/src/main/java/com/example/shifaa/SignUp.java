@@ -31,12 +31,12 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        btn = findViewById(R.id.btnsignup);
-        userName = findViewById(R.id.userName_SignUp);
-        password = findViewById(R.id.password_SignUp);
-        repassword = findViewById(R.id.repassword_SignUp);
-        email = findViewById(R.id.email);
-        mAuth = FirebaseAuth.getInstance();
+        btn = (Button) findViewById(R.id.btnsignup);
+        userName = (EditText) findViewById(R.id.userName_SignUp);
+        password = (EditText) findViewById(R.id.password_SignUp);
+        repassword = (EditText) findViewById(R.id.repassword_SignUp);
+        email = (EditText) findViewById(R.id.email);
+        mAuth = (FirebaseAuth) FirebaseAuth.getInstance();
         mLoadingBar = new ProgressDialog(SignUp.this);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +85,5 @@ public class SignUp extends AppCompatActivity {
                 }
             });
         }
-
     }
 }
