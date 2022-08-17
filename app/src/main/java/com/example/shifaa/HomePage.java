@@ -21,10 +21,10 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        imgboone = findViewById(R.id.img_boone);
-        imgbrain = findViewById(R.id.img_brain);
-        imgteeth = findViewById(R.id.img_teeth);
-        imghert = findViewById(R.id.img_hert);
+        imgboone = (ImageView) findViewById(R.id.img_boone);
+        imgbrain = (ImageView) findViewById(R.id.img_brain);
+        imgteeth = (ImageView) findViewById(R.id.img_teeth);
+        imghert = (ImageView) findViewById(R.id.img_hert);
 
         imgboone.setOnClickListener(new View.OnClickListener() {
             @Override

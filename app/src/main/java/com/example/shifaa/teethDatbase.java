@@ -15,7 +15,7 @@ public class teethDatbase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teeth_datbase);
 
-        btn_add = findViewById(R.id.Add);
+        btn_add = (Button) findViewById(R.id.Add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,11 +1,11 @@
 package com.example.shifaa;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,12 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.auth.api.identity.SignInCredential;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -42,21 +36,29 @@ public class MainActivity<idToken> extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog mLoadingBar;
 
-    BeginSignInRequest signInRequest ;
-    GoogleSignInClient mGoogleSignInClient ;
+    public static Drawable[] imageDrag_cart = new Drawable[6];
+    public static int no = 0;
+    public static int top = 0;
+    public static float total = 0;
+    public static String[] s1_c = new String[50];
+    public static String[] s2_c = new String[50];
+    public static String[] s3_c = new String[50];
+
+    String name = "Ahmed";
+    String password = "123";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        user = findViewById(R.id.edtUsername);
-        passw = findViewById(R.id.edtPassword);
-        email_login = findViewById(R.id.Email_LogIn);
-        signup = findViewById(R.id.infoTxtCredits);
-        login = findViewById(R.id.btnLogIn);
-        google = findViewById(R.id.google);
-        facebook = findViewById(R.id.facebook);
+        user = (EditText) findViewById(R.id.edtUsername);
+        passw = (EditText) findViewById(R.id.edtPassword);
+        email_login = (EditText) findViewById(R.id.Email_LogIn);
+        signup = (TextView) findViewById(R.id.infoTxtCredits);
+        login = (Button) findViewById(R.id.btnLogIn);
+        google = (ImageView) findViewById(R.id.google);
+        facebook = (ImageView) findViewById(R.id.facebook);
 
         mAuth = FirebaseAuth.getInstance();
         mLoadingBar = new ProgressDialog(MainActivity.this);
@@ -93,7 +95,10 @@ public class MainActivity<idToken> extends AppCompatActivity {
         String mail_signIn = email_login.getText().toString();
         String pass_singIn = passw.getText().toString();
 
-        if (username_signIn.isEmpty() || username_signIn.length() < 7) {
+        if (username_signIn.equals(name) || pass_singIn.equals(password)) {
+            Intent intent = new Intent(MainActivity.this, HomeManger.class);
+            startActivity(intent);
+        } else if (username_signIn.isEmpty() || username_signIn.length() < 7) {
             Toast.makeText(MainActivity.this, "Your username is not valid!", Toast.LENGTH_SHORT).show();
         } else if (mail_signIn.isEmpty() || !mail_signIn.contains("@")) {
             Toast.makeText(MainActivity.this, "Email is not valid!", Toast.LENGTH_SHORT).show();

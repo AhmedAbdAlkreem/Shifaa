@@ -17,7 +17,7 @@ public class HomeManger extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_manger);
 
-        teethData = findViewById(R.id.img_teeth1);
+        teethData = (ImageView) findViewById(R.id.img_teeth1);
         teethData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -4,64 +4,92 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.firebase.database.Query;
 
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class AddCutomViw extends AppCompatActivity {
 
-    ArrayList<User> l_item = new ArrayList<User>();
-    ArrayList<String> key_item = new ArrayList<>();
+    List<User2> l_item ;
+
     EditText nameDrag;
     EditText salryDrag;
     Button AddChange;
-    ImageView img1;
-    ListView lis;
     Button gallery;
-    Uri selectImage;
+    ImageView img1;
+
+
+    private static final int Pick_Image_Request = 1;
+    private Uri mImageUri;
+
+    //Storage Firebase.
+    private StorageReference mStorageRef;
+    private DatabaseReference mDatabaseRef;
+    private StorageTask mUploadTask;
+    private ImageAdapter mAdapter;
+    private RecyclerView mRecyleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_add_cutom_viw);
 
-        nameDrag = findViewById(R.id.getDragname);
-        salryDrag = findViewById(R.id.getSalryDrag);
-        AddChange = findViewById(R.id.AddChange);
-        img1 = findViewById(R.id.logoPha);
-        gallery = findViewById(R.id.gallrey);
-        customListView myAdapter = new customListView(l_item);
-        lis = findViewById(R.id.listView8);
-        lis.setAdapter(myAdapter);
+        nameDrag = (EditText) findViewById(R.id.getDragname);
+        salryDrag = (EditText) findViewById(R.id.getSalryDrag);
+        AddChange = (Button) findViewById(R.id.AddChange);
+        gallery = (Button) findViewById(R.id.gallrey);
+        img1 = (ImageView) findViewById(R.id.logoPha);
+        mRecyleView = (RecyclerView) findViewById(R.id.ReclerView);
+        mRecyleView.setLayoutManager(new LinearLayoutManager(AddCutomViw.this));
+        mRecyleView.setHasFixedSize(true);
+        mRecyleView.setAdapter(mAdapter);
 
-        lis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        l_item = new ArrayList<>();
+        // Delete custom list view.
+       /* lis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddCutomViw.this);
@@ -77,16 +105,49 @@ public class AddCutomViw extends AppCompatActivity {
                     }
                 });
             }
+
+        });*/
+
+        //Storage Firebase(Upload data).
+        mStorageRef = FirebaseStorage.getInstance().getReference("upLoads");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("upLoads");
+
+        //Download data.
+
+       String uploadId = mDatabaseRef.push().getKey();
+
+       mDatabaseRef.child(uploadId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot postsnapShot : snapshot.getChildren()) {
+//                    User2 use = new User2();
+
+
+                    Toast.makeText(AddCutomViw.this, "Writing succed", Toast.LENGTH_SHORT).show();
+//                    use.setImgUri1(postsnapShot.child("imgUri1").getValue().toString());
+//                    use.setSaleOfDrag1(postsnapShot.child("imgUri1").getValue().toString());
+//                    use.setTupeOfDrag1(postsnapShot.child("imgUri1").getValue().toString());
+                    User2 upload = postsnapShot.getValue(User2.class);
+                    l_item.add(upload);
+
+                    mAdapter = new ImageAdapter(AddCutomViw.this, l_item);
+                    mRecyleView.setAdapter(mAdapter);
+                   // mAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddCutomViw.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("User");
-
+        //To take photo from the gallery.
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 3);
+                openFileChooser();
             }
         });
 
@@ -94,106 +155,72 @@ public class AddCutomViw extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               myRef.push().setValue(new User(nameDrag.getText().toString(), salryDrag.getText().toString(), R.drawable.logo)).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(AddCutomViw.this, "Add succed", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddCutomViw.this, "Add Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                //l_item.add(new User(nameDrag.getText().toString(), salryDrag.getText().toString(), R.drawable.logo));
-                myAdapter.notifyDataSetChanged();
-                nameDrag.setText("");
-                salryDrag.setText("");
-            }
-        });
-
-
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                 key_item.add(snapshot.getKey());
-                 User user = snapshot.getValue(User.class);
-
-                l_item.add(user);
-
-                Toast.makeText(AddCutomViw.this, "Add list succed", Toast.LENGTH_SHORT).show();
-                 myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddCutomViw.this, "Connect Failed", Toast.LENGTH_SHORT).show();
+                if (mUploadTask != null && mUploadTask.isInProgress()) {
+                    Toast.makeText(AddCutomViw.this, "Upload in Progress", Toast.LENGTH_SHORT).show();
+                } else {
+                    uploadFile();
+                }
             }
         });
 
     }
 
-    class customListView extends BaseAdapter {
-
-        ArrayList<User> Items = new ArrayList<User>();
-
-        customListView(ArrayList<User> Items) {
-            this.Items = Items;
-        }
-
-        @Override
-        public int getCount() {
-            return Items.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return Items.get(i).getTupeOfDrag();
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            LayoutInflater layoutInflater = getLayoutInflater();
-            View view1 = layoutInflater.inflate(R.layout.list_item2, null);
-            EditText txtName = view1.findViewById(R.id.nameDrag_m);
-            EditText txtdesc = view1.findViewById(R.id.salary_m);
-            ImageView imag = view1.findViewById(R.id.imagpha_m);
-
-            txtName.setText(Items.get(i).getTupeOfDrag());
-            txtdesc.setText(Items.get(i).getSaleOfDrag());
-            imag.setImageResource(Items.get(i).getImgDrag());
-            return view1;
-        }
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, Pick_Image_Request);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
-            selectImage = data.getData();
-            img1.setImageURI(selectImage);
+        if (requestCode == Pick_Image_Request && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+            Picasso.get().load(mImageUri).into(img1);
+        }
+    }
+
+    private String getFileExetention(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void uploadFile() {
+        if (mImageUri != null) {
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
+                    + "." + getFileExetention(mImageUri)
+            );
+
+            mUploadTask = fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(AddCutomViw.this, "Upload succed", Toast.LENGTH_SHORT).show();
+                    User2 user = new User2( nameDrag.getText().toString(),
+                            salryDrag.getText().toString(),
+                            taskSnapshot.getUploadSessionUri().toString());
+                    String uploadId = mDatabaseRef.push().getKey();
+                    mDatabaseRef.child(uploadId).setValue(user);
+                    nameDrag.setText("");
+                    salryDrag.setText("");
+                    img1.setImageResource(R.drawable.logo);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(AddCutomViw.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                    //mProgressBar
+                }
+            });
+        } else {
+            Toast.makeText(AddCutomViw.this, "No File Selected", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/imagpha"
-        android:layout_width="70dp"
+        android:layout_width="68dp"
         android:layout_height="80dp"
         android:src="@drawable/logo" />
 
@@ -39,11 +39,12 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="LE">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginLeft="4dp"
+                android:text="LE" />
 
-            </TextView>
 
         </LinearLayout>
 
@@ -51,7 +52,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="162dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -59,29 +60,35 @@
 
         <Button
             android:id="@+id/pluseAction"
-            android:layout_width="52dp"
+            android:layout_width="40dp"
             android:layout_height="27dp"
             android:background="@drawable/add_button"
-            android:backgroundTint="@color/DarkBlue"/>
+            android:backgroundTint="@color/DarkBlue" />
 
         <EditText
             android:id="@+id/numOfDrag"
             android:layout_width="37dp"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="0"
             android:backgroundTint="@color/DarkBlue"
-            />
+            android:text="0"
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/minesAction"
-            android:layout_width="52dp"
+            android:layout_width="40dp"
             android:layout_height="27dp"
             android:background="@drawable/remove_button"
-            android:backgroundTint="@color/DarkBlue"/>
+            android:backgroundTint="@color/DarkBlue" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_cart"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/cart" />
 
 </LinearLayout>
