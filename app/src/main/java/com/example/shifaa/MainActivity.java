@@ -2,6 +2,8 @@ package com.example.shifaa;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity<idToken> extends AppCompatActivity {
 
@@ -46,6 +49,9 @@ public class MainActivity<idToken> extends AppCompatActivity {
 
     String name = "Ahmed";
     String password = "123";
+    private RecyclerView mRecyleView ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,9 @@ public class MainActivity<idToken> extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mLoadingBar = new ProgressDialog(MainActivity.this);
+
+
+        mRecyleView = (RecyclerView) findViewById(R.id.ReclerView);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override

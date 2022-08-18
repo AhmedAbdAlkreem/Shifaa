@@ -1,9 +1,18 @@
 package com.example.shifaa;
 
+import static com.example.shifaa.MainActivity.imageDrag_cart;
+import static com.example.shifaa.MainActivity.no;
+import static com.example.shifaa.MainActivity.s1_c;
+import static com.example.shifaa.MainActivity.s2_c;
+import static com.example.shifaa.MainActivity.s3_c;
+import static com.example.shifaa.MainActivity.top;
+import static com.example.shifaa.MainActivity.total;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.Query;
@@ -59,6 +68,7 @@ public class AddCutomViw extends AppCompatActivity {
     Button AddChange;
     Button gallery;
     ImageView img1;
+    Button showlist;
 
 
     private static final int Pick_Image_Request = 1;
@@ -69,23 +79,28 @@ public class AddCutomViw extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
     private ImageAdapter mAdapter;
-    private RecyclerView mRecyleView;
+    private RecyclerView mRecyleView ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_add_cutom_viw);
+
 
         nameDrag = (EditText) findViewById(R.id.getDragname);
         salryDrag = (EditText) findViewById(R.id.getSalryDrag);
         AddChange = (Button) findViewById(R.id.AddChange);
         gallery = (Button) findViewById(R.id.gallrey);
         img1 = (ImageView) findViewById(R.id.logoPha);
-        mRecyleView = (RecyclerView) findViewById(R.id.ReclerView);
-        mRecyleView.setLayoutManager(new LinearLayoutManager(AddCutomViw.this));
-        mRecyleView.setHasFixedSize(true);
-        mRecyleView.setAdapter(mAdapter);
+        showlist = (Button) findViewById(R.id.showList);
+
+
+//        mRecyleView = (RecyclerView) findViewById(R.id.ReclerView);
+//        mRecyleView.setLayoutManager(new LinearLayoutManager(AddCutomViw.this));
+//        mRecyleView.setHasFixedSize(true);
+//        mRecyleView.setAdapter(mAdapter);
 
         l_item = new ArrayList<>();
         // Delete custom list view.
@@ -116,14 +131,12 @@ public class AddCutomViw extends AppCompatActivity {
 
        String uploadId = mDatabaseRef.push().getKey();
 
-       mDatabaseRef.child(uploadId).addValueEventListener(new ValueEventListener() {
+       /*mDatabaseRef.child(uploadId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot postsnapShot : snapshot.getChildren()) {
 //                    User2 use = new User2();
-
-
                     Toast.makeText(AddCutomViw.this, "Writing succed", Toast.LENGTH_SHORT).show();
 //                    use.setImgUri1(postsnapShot.child("imgUri1").getValue().toString());
 //                    use.setSaleOfDrag1(postsnapShot.child("imgUri1").getValue().toString());
@@ -133,13 +146,23 @@ public class AddCutomViw extends AppCompatActivity {
 
                     mAdapter = new ImageAdapter(AddCutomViw.this, l_item);
                     mRecyleView.setAdapter(mAdapter);
-                   // mAdapter.notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(AddCutomViw.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+
+        //Button to show data of teeth.
+        showlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddCutomViw.this , ShowTeethDrags.class);
+                startActivity(intent);
             }
         });
 
@@ -162,7 +185,6 @@ public class AddCutomViw extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void openFileChooser() {
@@ -171,6 +193,7 @@ public class AddCutomViw extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, Pick_Image_Request);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -186,6 +209,7 @@ public class AddCutomViw extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+
 
     private void uploadFile() {
         if (mImageUri != null) {
@@ -205,7 +229,6 @@ public class AddCutomViw extends AppCompatActivity {
                     nameDrag.setText("");
                     salryDrag.setText("");
                     img1.setImageResource(R.drawable.logo);
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
